@@ -24,6 +24,7 @@ function Book(title, author, pages, read) {
 }
 // Load Data if Local Storage not empty
 if(window.localStorage.length != 0) {
+    console.log(localStorage);
     let data = JSON.parse(window.localStorage.getItem('Library'));
     console.log(data);
     for( let i = 0; i < data.length; i++){
