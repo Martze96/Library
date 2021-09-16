@@ -145,9 +145,14 @@ body {
     padding: 16px;
     display: flex;
     align-items: center;
+   
+}
+
+.footer a {
     font-size: 18px;
     color: white;
     opacity: 0.2;
+    text-decoration: none;
 }
 
 .form {
