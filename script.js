@@ -1,5 +1,4 @@
 // Form noch schön machen
-//Test Comment
 const main = document.querySelector('.main');
 const readCheckBox = document.querySelector(".readCheckBox");
 const addBookButton = document.querySelector(".addBookButton");
@@ -22,10 +21,24 @@ function Book(title, author, pages, read) {
     this.pages = pages
     this.read = read
 }
+// FOR DEMONSTRATION PURPOSES, I USED SESSIONSTORAGE INSTEAD OF LOCALSTORAGE BECAUSE GITHUB PAGES BREAKS DOWN WITH LOCALSTORAGE 
+/*
 // Load Data if Local Storage not empty
 if(window.localStorage.length != 0) {
     console.log(localStorage);
     let data = JSON.parse(window.localStorage.getItem('Library'));
+    console.log(data);
+    for( let i = 0; i < data.length; i++){
+        addBookToLibrary(data[i].title,data[i].author,data[i].pages,data[i].read);
+    }
+} else {
+    addBookToLibrary("The Pragmatic Programmer","David Thomas",308,true);
+}
+*/
+// Load Data if SessionStorage not empty
+if(window.sessionStorage.length != 0) {
+    console.log(sessionStorage);
+    let data = JSON.parse(window.sessionStorage.getItem('Library'));
     console.log(data);
     for( let i = 0; i < data.length; i++){
         addBookToLibrary(data[i].title,data[i].author,data[i].pages,data[i].read);
@@ -55,7 +68,8 @@ formAbortButton.addEventListener("click", () => {
 function addBookToLibrary(title, author, pages, read) {
     let newBook = new Book(title,author,pages,read);
     myLibrary.push(newBook);
-    updateLocalDB();
+    //updateLocalDB();
+    updateSessionDB()
 }
 /*
 addBookToLibrary('Die Bibel', 'Jesus', 980, true);
@@ -65,13 +79,15 @@ addBookToLibrary('Handbuch', 'OBI', 19, true);
 */
 function deleteBook(index) {
     myLibrary.splice(index,1);
-    updateLocalDB();
+    //updateLocalDB();
+    updateSessionDB()
     displayBooks();
 }
 
 function toggleRead(index) {
     myLibrary[index].read = !myLibrary[index].read;
-    updateLocalDB();
+    //updateLocalDB();
+    updateSessionDB()
 }
 
 
@@ -149,6 +165,10 @@ function openForm() {
 
 function updateLocalDB(){
     localStorage.setItem('Library',JSON.stringify(myLibrary));
+}
+
+function updateSessionDB(){
+    sessionStorage.setItem('Library',JSON.stringify(myLibrary));
 }
 
 displayBooks();
